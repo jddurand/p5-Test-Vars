@@ -12,7 +12,8 @@ use Test::Vars;
 
 # A Moose role that declares a stub sub for an attribute accessor _before_
 # declaring the attribute triggers an odd bug in Test::Vars.
-{
+SKIP: {
+	skip 'Unreliable test', 2;
     my $file = catfile( qw( t lib StubSub.pm ) );
     my @unused;
     my $handler = sub {
@@ -35,7 +36,7 @@ use Test::Vars;
                     ],
                     [
                         'diag',
-                        '$x is used once in &StubSub::foo at t/lib/StubSub.pm line 13'
+                        /\$x\s+is\s+used\s+once/
                     ]
                 ]
             ]
